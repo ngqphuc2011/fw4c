@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild, Input } from '@angular/core';
 import { Consumer } from '../consumer';
 import { of } from 'rxjs';
+import { EditConsumerService } from './edit-consumer.service';
 
 @Component({
   selector: 'app-edit-consumer',
@@ -19,7 +20,9 @@ export class EditConsumerComponent implements OnInit {
     tags: "Tags"
   }
 
-  constructor() { }
+  constructor(
+    private _editConsumerService :EditConsumerService
+  ) { }
 
   ngOnInit() {
   }
@@ -29,6 +32,6 @@ export class EditConsumerComponent implements OnInit {
   }
   callback() {
     this.body = JSON.stringify(this.item);
-    return of(this.body);
+    return this._editConsumerService.updateData(this.item.id, this.body);
   }
 }
