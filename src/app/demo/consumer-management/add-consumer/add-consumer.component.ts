@@ -1,6 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Consumer } from '../consumer';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { ValidationService, ValidationOption, RequiredValidationRule, ClientValidator, CustomValidationRule } from 'ngx-fw4c';
 import { of, Observable } from 'rxjs';
 import { AddConsumerService } from './add-consumer.service';
@@ -13,9 +12,13 @@ import { AddConsumerService } from './add-consumer.service';
 export class AddConsumerComponent implements OnInit, AfterViewInit {
   public item = new Consumer;
   public body: any;
-
   @ViewChild("formRef", { static: true }) public formRef: ElementRef;
 
+  public label = {
+    username: "Username",
+    custom_id: "Custom ID",
+    tags: "Tags"
+  }
 
   ngAfterViewInit(): void {
     this.initValidations();
@@ -27,7 +30,7 @@ export class AddConsumerComponent implements OnInit, AfterViewInit {
         valueResolver: () => this.item.username,
         relevantFields: () => ["Custom_id"],
         rules: [
-          new RequiredValidationRule()
+          new RequiredValidationRule(),
         ]
       }),
       new ValidationOption({
@@ -48,7 +51,6 @@ export class AddConsumerComponent implements OnInit, AfterViewInit {
   }
 
   constructor(
-    private http: HttpClient,
     private _validationService: ValidationService,
     private _addConsumerService: AddConsumerService
   ) { }
@@ -63,8 +65,7 @@ export class AddConsumerComponent implements OnInit, AfterViewInit {
 
   callback(): Observable<any> {
     this.body = JSON.stringify(this.item);
-    console.log(this.item);
-    return this._addConsumerService.postData(this.body);
+    return this._addConsumerService.createData(this.body);
   }
 
 

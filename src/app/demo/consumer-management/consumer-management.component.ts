@@ -29,6 +29,7 @@ import {
 } from "ngx-fw4c";
 import { ConsumerManagementService } from './consumer-management.service';
 import { AddConsumerComponent } from './add-consumer/add-consumer.component';
+import { EditConsumerComponent } from './edit-consumer/edit-consumer.component';
 @Component({
   selector: 'app-consumer-management',
   templateUrl: './consumer-management.component.html',
@@ -84,18 +85,34 @@ export class ConsumerManagementComponent implements OnInit {
       actions: [
         {
           icon: "fa fa-edit",
-          executeAsync: () => {
-            //call other api....
+          executeAsync: (consumer) => {
+            this._modalService.showTemplateDialog(new TemplateViewModel({
+              template: EditConsumerComponent,
+              customSize: 'modal-lg',
+              title: 'Edit Consumer',
+              btnAcceptTitle: 'Edit',
+              data: {
+                item: consumer
+              },
+              cancelCallback: () => {
+                this.tableTemplate.reload();
+              },
+              acceptCallback: item => {
+                this._consumerManagementService.updateData(consumer.id, item).subscribe(() => {
+                  this.tableTemplate.reload();
+                })
+              }
+            }))
           }
         },
         {
           icon: "fa fa-remove",
-          executeAsync: (item) => {
+          executeAsync: (consumer) => {
             this._modalService.showConfirmDialog(new ConfirmViewModel({
               btnAcceptTitle: 'Delete',
               message: 'Are you sure to delete this consumer?',
               acceptCallback: () => {
-                this._consumerManagementService.deleteData(item.id).subscribe(() => {
+                this._consumerManagementService.deleteData(consumer.id).subscribe(() => {
                   this.tableTemplate.reload();
                 })
               }
@@ -133,7 +150,7 @@ export class ConsumerManagementComponent implements OnInit {
       ],
       serviceProvider: {
         searchAsync: request => {
-          return this._consumerManagementService.getData(request);
+          return this._consumerManagementService.readData(request);
         }
       }
     });

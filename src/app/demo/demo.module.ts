@@ -11,6 +11,7 @@ import { ServiceManagementComponent } from './service-management/service-managem
 import { AddServiceComponent } from './service-management/add-service/add-service.component';
 import { ConsumerManagementComponent } from './consumer-management/consumer-management.component';
 import { AddConsumerComponent } from './consumer-management/add-consumer/add-consumer.component';
+import { EditConsumerComponent } from './consumer-management/edit-consumer/edit-consumer.component';
 
 
 const declarations = [
@@ -21,7 +22,8 @@ const declarations = [
   ServiceManagementComponent,
   AddServiceComponent,
   ConsumerManagementComponent,
-  AddConsumerComponent
+  AddConsumerComponent,
+  EditConsumerComponent
 ];
 
 @NgModule({
