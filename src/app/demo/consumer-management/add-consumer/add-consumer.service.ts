@@ -10,7 +10,7 @@ export class AddConsumerService {
   
   constructor(private http: HttpClient) { }
 
-  postData(body) {
+  createData(body) {
     return this.http.post(this.apiUrl, body, this.header);
   }
 }
