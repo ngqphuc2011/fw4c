@@ -98,9 +98,7 @@ export class ConsumerManagementComponent implements OnInit {
                 this.tableTemplate.reload();
               },
               acceptCallback: item => {
-                this._consumerManagementService.updateData(consumer.id, item).subscribe(() => {
-                  this.tableTemplate.reload();
-                })
+                this.tableTemplate.reload().subscribe();
               }
             }))
           }

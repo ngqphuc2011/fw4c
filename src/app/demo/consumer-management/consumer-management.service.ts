@@ -8,14 +8,12 @@ import { ConsumerResponse, ConsumerRequest } from './consumer.model';
   providedIn: 'root'
 })
 export class ConsumerManagementService {
-
   public totalRecords: number = 0;
   public item = [];
   public apiUrl = 'http://192.168.35.108:8001/consumers'
   public header = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
   constructor(private http: HttpClient) {
-
   }
 
   public readData(request: ConsumerRequest): Observable<ConsumerResponse> {
@@ -31,9 +29,5 @@ export class ConsumerManagementService {
 
   public deleteData(id) {
     return this.http.delete(this.apiUrl + '/' + id);
-  }
-
-  public updateData(id, body) {
-    return this.http.put(this.apiUrl + '/' + id, body, this.header);
   }
 }

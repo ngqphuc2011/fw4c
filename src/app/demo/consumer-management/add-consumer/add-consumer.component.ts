@@ -67,6 +67,4 @@ export class AddConsumerComponent implements OnInit, AfterViewInit {
     this.body = JSON.stringify(this.item);
     return this._addConsumerService.createData(this.body);
   }
-
-
 }
