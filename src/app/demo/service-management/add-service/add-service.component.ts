@@ -83,7 +83,7 @@ export class AddServiceComponent implements OnInit, AfterViewInit {
     return of(this.postData());
   }
 
-  postData():void {
+  postData(): void {
     this.http.post(this.apiUrl, this.body, this.header).subscribe();
   }
 
